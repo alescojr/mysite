@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Delilah</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #0f0f11;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+    .card {
+      background: #1a1a24;
+      border: 1px solid #2a2a3a;
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    .img-wrapper {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+    .img-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+    }
+    p {
+      color: #a0a0b0;
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+    }
+
+    /* Side-by-Side Container */
+    .performance-area {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    /* Bunny Styles */
+    .bunny-container {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      flex-shrink: 0;
+    }
+    .bunny-svg {
+      width: 100%;
+      height: 100%;
+      transform-origin: bottom center;
+    }
+
+    /* Speech Bubble / Lyrics Box on the Side */
+    .speech-bubble {
+      flex-grow: 1;
+      background: #12121a;
+      border: 1px solid #2a2a3a;
+      border-radius: 12px;
+      padding: 10px;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Little speech bubble tail pointing to the bunny */
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 8px solid #2a2a3a;
+    }
+
+    .lyrics-scroll {
+      max-height: 90px;
+      overflow-y: auto;
+      width: 100%;
+      text-align: left;
+    }
+
+    .lyric-line {
+      font-size: 0.85rem;
+      color: #555566;
+      margin-bottom: 6px;
+      transition: all 0.3s ease;
+      opacity: 0.4;
+    }
+
+    .lyric-line.active {
+      color: #ff758c;
+      font-weight: bold;
+      opacity: 1;
+      transform: scale(1.02);
+    }
+
+    /* Animations when playing music */
+    .playing .bunny-body {
+      animation: sway 1.2s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+    .playing .guitar-arm {
+      animation: strum 0.3s ease-in-out infinite alternate;
+      transform-origin: top left;
+    }
+    .playing .music-note-1 {
+      animation: floatNote 1.5s ease-out infinite;
+    }
+    .playing .music-note-2 {
+      animation: floatNote 1.5s ease-out infinite 0.7s;
+    }
+
+    @keyframes sway {
+      0% { transform: rotate(-5deg); }
+      100% { transform: rotate(5deg); }
+    }
+    @keyframes strum {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(-12deg); }
+    }
+    @keyframes floatNote {
+      0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.6);
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translate(25px, -40px) scale(1.2);
+      }
+    }
+
+    .music-note {
+      opacity: 0;
+      fill: #ff758c;
+    }
+
+    .btn {
+      background: #ff4757;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+      transition: transform 0.2s;
+    }
+    .btn:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="card">
+    <div class="img-wrapper">
+      <img src="IMG-20260930-WA0007.jpg" alt="Delilah's Photo">
+    </div>
+    
+    <h1>Special One</h1>
+    <p>Press play for the vibes.</p>
+
+    <!-- Side-by-Side Section -->
+    <div class="performance-area">
+      <!-- Bunny on Left -->
+      <div class="bunny-container">
+        <svg class="bunny-svg" viewBox="0 0 200 200">
+          <text x="130" y="70" class="music-note music-note-1" font-size="20">🎵</text>
+          <text x="150" y="90" class="music-note music-note-2" font-size="18">🎶</text>
+
+          <g class="bunny-body">
+            <ellipse cx="80" cy="45" rx="10" ry="30" fill="#ffccd5" stroke="#4a4a4a" stroke-width="3" transform="rotate(-10 80 45)" />
+            <ellipse cx="115" cy="45" rx="10" ry="30" fill="#ffccd5" stroke="#4a4a4a" stroke-width="3" transform="rotate(10 115 45)" />
+            <circle cx="98" cy="85" r="32" fill="#ffffff" stroke="#4a4a4a" stroke-width="3" />
+            <circle cx="80" cy="92" r="6" fill="#ffb3c1" />
+            <circle cx="116" cy="92" r="6" fill="#ffb3c1" />
+            <circle cx="85" cy="82" r="4" fill="#333" />
+            <circle cx="111" cy="82" r="4" fill="#333" />
+            <polygon points="98,88 95,92 101,92" fill="#ff758c" />
+            <path d="M 94 94 Q 98 98 102 94" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" />
+
+            <ellipse cx="98" cy="135" rx="28" ry="32" fill="#ffffff" stroke="#4a4a4a" stroke-width="3" />
+
+            <path d="M 70 120 C 55 110, 55 140, 75 145 C 90 150, 95 125, 80 120 Z" fill="#ff9f43" stroke="#4a4a4a" stroke-width="3" />
+            <rect x="75" y="115" width="45" height="7" fill="#8d5524" rx="2" transform="rotate(-20 75 115)" stroke="#4a4a4a" stroke-width="2" />
+
+            <g class="guitar-arm">
+              <path d="M 75 120 Q 65 130 80 135" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" />
+              <path d="M 75 120 Q 65 130 80 135" fill="none" stroke="#4a4a4a" stroke-width="3" stroke-linecap="round" />
+            </g>
+
+            <ellipse cx="80" cy="165" rx="12" ry="7" fill="#ffccd5" stroke="#4a4a4a" stroke-width="3" />
+            <ellipse cx="116" cy="165" rx="12" ry="7" fill="#ffccd5" stroke="#4a4a4a" stroke-width="3" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Lyrics Speech Bubble on Right -->
+      <div class="speech-bubble">
+        <div class="lyrics-scroll">
+          <p class="lyric-line" data-time="0">Hey there, Delilah, what's it like in New York City?</p>
+          <p class="lyric-line" data-time="6">I'm a thousand miles away, but girl, tonight, you look so pretty</p>
+          <p class="lyric-line" data-time="12">Yes, you do</p>
+          <p class="lyric-line" data-time="16">Times Square can't shine as bright as you</p>
+          <p class="lyric-line" data-time="20">I swear it's true</p>
+          <p class="lyric-line" data-time="25">Hey there, Delilah, don't you worry about the distance</p>
+          <p class="lyric-line" data-time="31">I'm right there if you get lonely, give this song another listen</p>
+          <p class="lyric-line" data-time="38">Close your eyes</p>
+          <p class="lyric-line" data-time="41">Listen to my voice, it's my disguise</p>
+          <p class="lyric-line" data-time="45">I'm by your side</p>
+          <p class="lyric-line" data-time="50">Oh, it's what you do to me</p>
+          <p class="lyric-line" data-time="55">Oh, it's what you do to me</p>
+          <p class="lyric-line" data-time="60">Oh, it's what you do to me</p>
+          <p class="lyric-line" data-time="65">Oh, it's what you do to me</p>
+          <p class="lyric-line" data-time="70">What you do to me</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn" id="play-btn" onclick="toggleAudio()">Play Music 🎵</button>
+  </div>
+
+  <audio id="bg-music" src="ssstik.io_1790871445587.mp3" loop></audio>
+
+  <script>
+    function toggleAudio() {
+      const audio = document.getElementById('bg-music');
+      const card = document.getElementById('card');
+      const btn = document.getElementById('play-btn');
+
+      if (audio.paused) {
+        audio.play();
+        card.classList.add('playing');
+        btn.innerText = 'Pause Music ⏸️';
+      } else {
+        audio.pause();
+        card.classList.remove('playing');
+        btn.innerText = 'Play Music 🎵';
+      }
+    }
+
+    const audio = document.getElementById('bg-music');
+    const lyricLines = document.querySelectorAll('.lyric-line');
+
+    audio.addEventListener('timeupdate', () => {
+      const currentTime = audio.currentTime;
+
+      lyricLines.forEach((line, index) => {
+        const lineTime = parseFloat(line.getAttribute('data-time'));
+        const nextLineTime = lyricLines[index + 1] 
+          ? parseFloat(lyricLines[index + 1].getAttribute('data-time')) 
+          : Infinity;
+
+        if (currentTime >= lineTime && currentTime < nextLineTime) {
+          line.classList.add('active');
+          line.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          line.classList.remove('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
